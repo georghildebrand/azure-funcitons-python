@@ -1,0 +1,21 @@
+{
+  "scriptFile": "__init__.py",
+  "disabled": false,
+  "bindings": [
+    {
+      "name": "msg",
+      "type": "queueTrigger",
+      "direction": "in",
+      "queueName": "inputqueue",
+      "connection": "AzureWebJobsStorage"
+    },
+    {
+      "name": "message",
+      "type": "table",
+      "tableName": "message",
+      "partitionKey": "message",
+      "connection": "AzureWebJobsStorage",
+      "direction": "out"
+    }
+  ]
+}
