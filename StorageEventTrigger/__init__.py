@@ -15,7 +15,7 @@ def main(msg: func.QueueMessage, message: func.Out[str]) -> None:
         "Name": "Item Table",
         "PartitionKey": "message",
         "RowKey": rowKey,
-        "FactoryId": body["id_a"],
-        "PanelId": body["id_b"]
+        "id_a": body["id_a"],
+        "id_b": body["id_b"]
     }
     message.set(json.dumps(data))
