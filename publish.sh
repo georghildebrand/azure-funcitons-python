@@ -4,15 +4,6 @@ set -x
 # Function app and storage account names must be unique.
 # $RANDOM for using random variable content as you need unique naming
 
-export AZURE_STORAGE_CONNECTION_STRING=$(az storage account show-connection-string --name $storageName |jq .connectionString)
-
-if [ -z "$AZURE_STORAGE_CONNECTION_STRING" ] 
-then
-  echo "Please set AZURE_STORAGE_CONNECTION_STRING env variable!"
-else
-  echo "Found AZURE_STORAGE_CONNECTION_STRING var"
-fi
-
 random=$RANDOM
 export storageName="sa${random}"
 export functionAppName="functionApp${random}"
@@ -31,6 +22,14 @@ az storage account create \
   --location $region \
   --resource-group $resourcegroup \
   --sku Standard_ZRS
+
+export AZURE_STORAGE_CONNECTION_STRING=$(az storage account show-connection-string --name $storageName |jq .connectionString)
+if [ -z "$AZURE_STORAGE_CONNECTION_STRING" ] 
+then
+  echo "Please set AZURE_STORAGE_CONNECTION_STRING env variable!"
+else
+  echo "Found AZURE_STORAGE_CONNECTION_STRING var"
+fi
 
 # Create a storage queue named 
 az storage queue create --name "randomstuff" --account-name $storageName --auth-mode login
